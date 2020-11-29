@@ -1,7 +1,9 @@
 package com.hajarslamah.task_management
 
+import android.graphics.Color
+import android.graphics.Color.WHITE
+import android.graphics.Color.red
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,25 +11,30 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [ToDoTask.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ToDoTask : Fragment(),InputDialogFragment.Callbacks {
+class ToDoTask : Fragment(),InputDialogFragment.Callbacks,DatePickerFragment.Callbacks {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var task:TaskMang
+
     private val taskViewModel: TaskViewModel by lazy {
         ViewModelProviders.of(this).get(TaskViewModel::class.java)
     }
@@ -49,22 +56,23 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_do_task, container, false)
-        newTaskButton = view?.findViewById(R.id.add) as FloatingActionButton
-        taskRecyclerView = view?.findViewById(R.id.task1_recycler_view) as RecyclerView
+
+         val view=inflater.inflate(R.layout.fragment_to_do_task, container, false)
+        newTaskButton = view.findViewById(R.id.add) as FloatingActionButton
+        taskRecyclerView = view.findViewById(R.id.task1_recycler_view) as RecyclerView
         taskRecyclerView.layoutManager = LinearLayoutManager(context)//to manage the calling of on create and on bind and allow you how to show the UI
         taskRecyclerView.adapter = adapter
         newTaskButton.setOnClickListener {
-            val task = TaskMang()
+          //  val task = TaskMang()
             InputDialogFragment().apply{
-                setTargetFragment(this@ToDoTask,0)
-                show(this@ToDoTask.requireFragmentManager(),"Input")
+                setTargetFragment(this@ToDoTask, 0)
+                show(this@ToDoTask.requireFragmentManager(), "Input")
    }}
 
 
         return view
     }
-    private fun updateUI( tasks: List<TaskMang>) {
+    private fun updateUI(tasks: List<TaskMang>) {
         adapter = TaskAdapter(tasks)
         taskRecyclerView.adapter = adapter
         adapter= taskRecyclerView.adapter as TaskAdapter
@@ -85,12 +93,35 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks {
             itemView.setOnClickListener(this)
 
         }
-        fun bind(task:TaskMang ) {
+        fun bind(task: TaskMang) {
             this.task = task
 
+            val expiry_date = this.task.time_end .time
+              var current_date=System.currentTimeMillis()
+                  val day_counter = expiry_date - current_date
+                    val priod = (day_counter / (1000 * 60 * 60 * 24)).toInt()
+// Date(expiry_date - System.currentTimeMillis()); // 3 * 24 * 60 * 60 * 1000
+            if( priod>3){
+                 Toast.makeText(context, " their is more than three day to your task", Toast.LENGTH_SHORT) .show()
+            card.setBackgroundResource(R.color.colorAccent)
+            //setBackgroundColor(Color.GREEN)
+            }
+            else if(priod==3){
+                card.setBackgroundResource(R.color.design_default_color_error)
+             //   card.setBackgroundColor(Color.RED)
+                Toast.makeText(context, "  3 days to your task", Toast.LENGTH_SHORT) .show()
+            }
+            else{
+
+                card.setBackgroundResource(R.color.colorPrimary)
+                //setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.orange_300))
+                Toast.makeText(context, " less than 3 days ", Toast.LENGTH_SHORT) .show()
+            }
             nameTextView.text = this.task.title_task
             detailsTextView.text=this.task.details
-            dateEndTextView.text=  java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL).format(this.task.time_end).toString()
+            dateEndTextView.text=  java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL).format(
+                this.task.time_end
+            ).toString()
             moveButton.setOnClickListener {
                 this.task.status_task +=1
                   taskViewModel.updateTask(task)
@@ -145,7 +176,8 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks {
 
                         updateUI(tasks)
 
-                    }        })    }
+                    }
+                })    }
 
   companion object {
         /**
@@ -169,5 +201,10 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks {
 
     override fun addTask(task: TaskMang) {
         taskViewModel.addTask(task)
+    }
+
+    override fun onDateSelected(date: Date) {
+task.time_end=date
+        //updateUI()
     }
 }

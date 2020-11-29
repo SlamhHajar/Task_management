@@ -47,13 +47,11 @@ class PrograssTask : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prograss_task, container, false)
-
-        taskRecyclerView = view?.findViewById(R.id.task2_recycler_view) as  RecyclerView
+     val view= inflater.inflate(R.layout.fragment_prograss_task, container, false)
+        taskRecyclerView = view.findViewById(R.id.task2_recycler_view) as  RecyclerView
         taskRecyclerView.layoutManager = LinearLayoutManager(context)
         taskRecyclerView.adapter = adapter//to manage the calling of on create and on bind and allow you how to show the UI
-
-           return view
+             return view
     }
     private fun updateUI( tasks: List<TaskMang>) {
         adapter = TaskAdapter(tasks)

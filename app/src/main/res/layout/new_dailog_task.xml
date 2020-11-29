@@ -13,7 +13,7 @@
         android:background="#F6F5F5"
         android:gravity="center"
         android:text="ADD NEW Task"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="#01579b"
         android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:text="Title"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="#01579b"
             android:textSize="18sp" />
         <EditText
             android:id="@+id/title"
@@ -48,7 +48,7 @@
             android:layout_marginLeft="4dp"
             android:gravity="center"
             android:text="Details"
-            android:textColor="#E91E63"
+            android:textColor="#01579b"
             android:textSize="18sp" />
 
         <EditText
@@ -67,6 +67,8 @@
         android:id="@+id/task_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#01579b"
+        android:textColor="@android:color/white"
         tools:text="Wed Nov 14 11:56 EST 2018"/>
 
 </LinearLayout>

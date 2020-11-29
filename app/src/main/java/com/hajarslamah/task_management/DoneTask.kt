@@ -46,9 +46,9 @@ class DoneTask : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_done_task, container, false)
+      val view= inflater.inflate(R.layout.fragment_done_task, container, false)
 
-        taskRecyclerView = view?.findViewById(R.id.task3_recycler_view) as RecyclerView
+        taskRecyclerView = view.findViewById(R.id.task3_recycler_view) as RecyclerView
         taskRecyclerView.layoutManager = LinearLayoutManager(context)//to manage the calling of on create and on bind and allow you how to show the UI
 
         taskRecyclerView.adapter = adapter

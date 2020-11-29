@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import java.util.*
 private const val REQUEST_DATE = 0
 private const val DIALOG_DATE = "DialogDate"
-class InputDialogFragment:DialogFragment() {
+class InputDialogFragment:DialogFragment() ,DatePickerFragment.Callbacks{
 
     val task=TaskMang()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -30,14 +30,17 @@ class InputDialogFragment:DialogFragment() {
                   show(this@InputDialogFragment.requireFragmentManager(), DIALOG_DATE)
               }}}
 
-
-
+        dateButton.setText(task.time_end.toString())
 
         return AlertDialog.Builder(requireContext(),R.style.ThemeOverlay_AppCompat_Dialog_Alert)
             .setView(view)
             .setPositiveButton("Add"){ dialog,_ ->
-                val task=TaskMang(UUID.randomUUID(),titleEditText.text.toString(),
-                    detailsEditText.text.toString() )
+                val task=TaskMang(
+                    UUID.randomUUID(),
+                    titleEditText.text.toString(),
+                    detailsEditText.text.toString() ,
+                    task.time_end
+                )
                 targetFragment?.let { fragment ->
                     (fragment as Callbacks).addTask(task)
                 }
@@ -85,4 +88,8 @@ interface Callbacks {
     fun addTask(task: TaskMang)
 
 }
+    override fun onDateSelected(date: Date) {
+        task.time_end=date
+        //updateUI()
+    }
 }

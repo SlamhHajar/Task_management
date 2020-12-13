@@ -103,7 +103,7 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks,DatePickerFragment.Cal
 // Date(expiry_date - System.currentTimeMillis()); // 3 * 24 * 60 * 60 * 1000
             if( priod>3){
                  Toast.makeText(context, " their is more than three day to your task", Toast.LENGTH_SHORT) .show()
-            card.setBackgroundResource(R.color.colorAccent)
+            card.setBackgroundResource(R.color.green)
             //setBackgroundColor(Color.GREEN)
             }
             else if(priod==3){
@@ -113,8 +113,7 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks,DatePickerFragment.Cal
             }
             else{
 
-                card.setBackgroundResource(R.color.colorPrimary)
-                //setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.orange_300))
+                card.setBackgroundResource(R.color.orange)
                 Toast.makeText(context, " less than 3 days ", Toast.LENGTH_SHORT) .show()
             }
             nameTextView.text = this.task.title_task

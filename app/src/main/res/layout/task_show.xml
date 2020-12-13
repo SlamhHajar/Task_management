@@ -29,7 +29,10 @@
                 android:id="@+id/task_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               android:textColor="@android:color/black"
+               android:textColor="@android:color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="9dp"
                  android:text="Name of task"
                 android:background="#6f79a8"/>
             <TextView
@@ -37,15 +40,16 @@
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-
+                android:textStyle="bold"
+                android:gravity="center"
                 android:textColor="@android:color/black"
                 android:text="details "/>
             <TextView
                 android:id="@+id/end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:gravity="center"
                 android:background="#e8eaf6"
                tools:text="Wed Nov 14 11:56 EST 2018"/>
 
@@ -60,7 +64,7 @@
                 android:id="@+id/move_task"
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="70dp"
+                android:layout_marginRight="40dp"
                 android:background="#01579b"
                 android:src="@drawable/ic_baseline_compare_arrows_24"
 
@@ -71,6 +75,7 @@
                 android:layout_width="71dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginRight="70dp"
                 android:background="#01579b"
                 android:src="@drawable/ic_baseline_replay_24"
 

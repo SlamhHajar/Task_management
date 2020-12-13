@@ -68,6 +68,7 @@ class PrograssTask : Fragment() {
         val dateEndTextView: TextView = itemView.findViewById(R.id.end_date)
         val moveButton: ImageButton = itemView.findViewById(R.id.move_task)
         val rebackButton: ImageButton = itemView.findViewById(R.id.reback_task)
+        val deletButton: ImageButton = itemView.findViewById(R.id.delete)
 
         init {
             itemView.setOnClickListener(this)
@@ -84,6 +85,9 @@ class PrograssTask : Fragment() {
                 taskViewModel.updateTask(task)
                 //updateView()
                 // Toast.makeText(context, " Hi I'm Hajar *__-", Toast.LENGTH_SHORT) .show()
+            }
+            deletButton.setOnClickListener {
+                taskViewModel.deleteTask(task)
             }
            rebackButton.setOnClickListener {
                 this.task.status_task -=1

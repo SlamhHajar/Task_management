@@ -87,6 +87,7 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks,DatePickerFragment.Cal
         val detailsTextView: TextView = itemView.findViewById(R.id.task_details)
         val dateEndTextView: TextView = itemView.findViewById(R.id.end_date)
         val moveButton: ImageButton = itemView.findViewById(R.id.move_task)
+        val deletButton: ImageButton = itemView.findViewById(R.id.delete)
         val rebackButton: ImageButton = itemView.findViewById(R.id.reback_task)
 
         init {
@@ -115,6 +116,9 @@ class ToDoTask : Fragment(),InputDialogFragment.Callbacks,DatePickerFragment.Cal
 
                 card.setBackgroundResource(R.color.orange)
                 Toast.makeText(context, " less than 3 days ", Toast.LENGTH_SHORT) .show()
+            }
+            deletButton.setOnClickListener {
+                taskViewModel.deleteTask(task)
             }
             nameTextView.text = this.task.title_task
             detailsTextView.text=this.task.details
